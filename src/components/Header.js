@@ -1,22 +1,35 @@
-import React, {useState, useEffect} from "react";
-import { useNavigate ,Link } from 'react-router-dom';
+
+import React, {useState,useEffect} from "react";
+import { Link } from "react-router-dom";
 import "../style/Header.css";
+import SignUpModal from "../routes/SignUpModal";
+import LogInModal from "../routes/LogInModal";
 import logo from "../image/goku.png"
 function Header() {
+
+    // State variables to control modal visibility
+  const [signUpModalOpen, setSignUpModalOpen] = useState(false);
+  const [logInModalOpen, setLogInModalOpen] = useState(false);
+
+  // Functions to open/close modals
+  const openSignUpModal = () => setSignUpModalOpen(true);
+  const closeSignUpModal = () => setSignUpModalOpen(false);
+  const openLogInModal = () => setLogInModalOpen(true);
+  const closeLogInModal = () => setLogInModalOpen(false)
 
     //searchbar seaction
 
     const [searchTerm, setSearchTerm] = useState(''); 
     const [authorFilter, setAuthorFilter] = useState('');
     const [genreFilter, setGenreFilter] = useState('');
-    const [mangaData, setMangaData] = useState([]); // State để lưu trữ dữ liệu sau khi lọc
+    const [mangaData, setMangaData] = useState([]); 
   
     useEffect(() => {
       fetch('https://64e6bc0e09e64530d18031e6.mockapi.io/emanga/manga')  // mock API
         .then((response) => response.json())
         .then((data) => {
           
-          // Lọc dữ liệu dựa trên tác giả và thể loại nếu có
+       
           const filteredData = data.filter((manga) => {
             if (authorFilter && manga.author !== authorFilter) {
               return false;
@@ -27,7 +40,6 @@ function Header() {
             return true;
           });
   
-          // Lọc dữ liệu dựa trên giá trị từ thanh tìm kiếm
           const searchData = filteredData.filter((manga) =>
           manga.name && searchTerm &&
           manga.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -36,18 +48,6 @@ function Header() {
           setMangaData(searchData);
         });
     }, [searchTerm, authorFilter, genreFilter]);
-
-
-    // login section
-    const navigate = useNavigate();
-    const handleLoginClick = () => {
-        navigate('/login');
-    };
-    const handleRegisterClick = () => {
-        navigate('/register');
-    }
-
-
 
     return (
         <div className="Header">
@@ -71,12 +71,18 @@ function Header() {
                 <Link to="/" className="nav-item">MANGA LIST</Link>
                 <input placeholder="Search ..." class="input" name="text" type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}></input>
                 <div className="login-box">
-                    <div>
-                        <button className="login-btn" type="button" onClick={handleLoginClick}>Login</button>
-                        <button className="signup-btn" type="button" onClick={handleRegisterClick}>Sign up</button>
-                    </div>
+                        <div>
+                            <button className="login-btn" type="button"
+                            onClick={openLogInModal}>Login</button>
+                            <button className="signup-btn" type="button"
+                            onClick={openSignUpModal}
+                            >Sign up</button>
+                        </div>
                 </div>
             </nav>
+            {/*Modals */}
+            <SignUpModal isOpen={signUpModalOpen} onClose={closeSignUpModal} />
+            <LogInModal isOpen={logInModalOpen} onClose={closeLogInModal}/>
         </div>
     )
 }

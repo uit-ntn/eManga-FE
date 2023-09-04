@@ -1,0 +1,19 @@
+*{
+        margin:0;
+        padding: 0;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.Manga-List{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 20px ;
+    padding :20px 60px;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.Manga-List-item{
+    /* height: 230px;
+    width: 130px; */
+}
+
