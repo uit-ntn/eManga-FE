@@ -20,11 +20,11 @@ Welcome to our Manga Website project! This is the place where you can explore an
    npm install react-router-dom
    npm install
    
-3. **Start the Application
+3. **Start the Application**
 ```shell
 npm start
-The application will run on http://localhost:3000 by default.
 ```
+
 ## Contributing
 We welcome contributions to this project. If you'd like to contribute, please follow these steps:
 
