@@ -1,7 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import "../style/Header.css";
+import SignUpModal from "../routes/SignUpModal";
+import LogInModal from "../routes/LogInModal";
 function Header() {
+
+    // State variables to control modal visibility
+  const [signUpModalOpen, setSignUpModalOpen] = useState(false);
+  const [logInModalOpen, setLogInModalOpen] = useState(false);
+
+  // Functions to open/close modals
+  const openSignUpModal = () => setSignUpModalOpen(true);
+  const closeSignUpModal = () => setSignUpModalOpen(false);
+  const openLogInModal = () => setLogInModalOpen(true);
+  const closeLogInModal = () => setLogInModalOpen(false);
 
     return (
         <div className="Header">
@@ -26,11 +38,17 @@ function Header() {
                 <input placeholder="Search ..." class="input" name="text" type="text"></input>
                 <div className="login-box">
                         <div>
-                            <button className="login-btn" type="button">Login</button>
-                            <button className="signup-btn" type="button">Sign up</button>
+                            <button className="login-btn" type="button"
+                            onClick={openLogInModal}>Login</button>
+                            <button className="signup-btn" type="button"
+                            onClick={openSignUpModal}
+                            >Sign up</button>
                         </div>
                 </div>
             </nav>
+            {/*Modals */}
+            <SignUpModal isOpen={signUpModalOpen} onClose={closeSignUpModal} />
+            <LogInModal isOpen={logInModalOpen} onClose={closeLogInModal}/>
         </div>
     )
 }
