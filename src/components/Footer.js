@@ -29,7 +29,7 @@ const Footer = () => {
                 <div>Phone number : 0823 346 347</div>
                 <div>Email : 21521219@gm.uit.edu.vn</div>
                 <a href="https://uit-ntn.github.io/portfolio/">About Nhan</a>
-                <a href="">About Thi</a>
+                <a href="#">About Thi</a>
                 <div>Address : University of Information Technology</div>
             </div>
 
