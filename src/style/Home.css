@@ -9,10 +9,12 @@
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 20px ;
     padding :20px 60px;
-    /* background-color: rgba(0, 0, 0, 0.8); */
+    background-color: #fff;
 }
 
 .Manga-List-item{
     box-shadow :inset;
 }
+
+
 
