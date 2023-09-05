@@ -2,27 +2,31 @@ import React from "react";
 import Layout from "../components/Layout";
 import '../style/Detail.css'
 import  Instagram from '../image/Instagram.png';
+import { useLocation } from 'react-router-dom';
 
 function Detail() {
+    const location = useLocation();
+    const manga = location.state.manga;
+
     return (
         <Layout>
             <div className="manga-detail">
-                <div className="manga-card background">
+                <div className="manga-card-detail background">
                     <div className="manga-card__image">
-                        <img src="https://loremflickr.com/cache/resized/65535_52559459065_f72e7e59d1_b_640_480_nofilter.jpg"></img>
+                        <img src={manga.cover}></img>
                     </div>
                     <div className="manga-card__detail">
                         <div className="manga-card__detail-title">
-                            <div className="manga-card__detail-name">Abyss Rage</div>
-                            <div className="manga-card__detail-author">Roosevelt Brown</div>
+                            <div className="manga-card__detail-name">{manga.title}</div>
+                            <div className="manga-card__detail-author">{manga.author}</div>
                         </div>
                         <div className="manga-card__detail-genre">
                             <span className="Manga-card__label">Thể loại:</span>
-                            <span className="Manga-card__value">Metal</span>
+                            <span className="Manga-card__value">{manga.genre}</span>
                             </div>
                         <div className="manga-card__detail-rating">
                         <span className="Manga-card__label">Rating: 
-                        <span className="Manga-card__value">25</span>
+                        <span className="Manga-card__value">{manga.rating}</span>
                         </span>
                         </div>
                         <div className="manga-card__buttons">
@@ -52,7 +56,7 @@ function Detail() {
                 <span className="tab-link tab-heading__manga-content-tab">Nội Dung Truyện</span>
                 <span className="tab-link tab-heading__comments-tab">Bình Luận</span>
                 </div>
-                <div className="content-container">Repellat corporis qui fugit laborum cum eos repudiandae. Quod corporis inventore a. Voluptatibus autem molestias soluta.\nRerum laudantium molestiae sapiente dolores ducimus neque. Nisi aspernatur doloremque accusantium. Amet consequuntur non molestiae. Occaecati dolore assumenda totam accusantium optio consequatur quas nesciunt.\nFugiat consequatur vero corporis repudiandae asperiores dolorum. Libero nostrum voluptatibus ea culpa nisi. Dolore omnis illo labore commodi alias. Eum hic minima autem repellat temporibus et eum quam. Iusto nisi omnis. Non nemo impedit cum voluptates perspiciatis assumenda porro.</div>
+                <div className="content-container">{manga.content}</div>
             </div>
         </Layout>
     )

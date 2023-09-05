@@ -9,7 +9,7 @@ const publicRoutes = [
 {path :'/'  ,component : Home},
 {path :'/contact',component:Contact},
 {path :'/about',component:About},,
-{path:'/detail', component:Detail}
+{path:'/detail/:id', component:Detail}
 ];
 
 const privateRoutes = [
