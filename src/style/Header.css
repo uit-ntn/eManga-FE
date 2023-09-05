@@ -6,9 +6,9 @@
 }
 
 .Header {
-    min-height: 60px;
+    min-height: 80px;
     min-width: 960px;
-    background-color: black;
+    background-color: rgb(35, 44, 49);
     margin: 0px;
 
 }
@@ -16,7 +16,7 @@
 /*logo section*/
 
 .logo {
-    width: 50px;
+    width: 80px;
 }
 
 /*navigation section*/
@@ -68,9 +68,9 @@ nav {
 /*search section*/
 
 .input {
-    background-color: #212121;
+    background-color: #000000;
     max-width: 400px;
-    width: 250px;
+    width: 300px;
     height: 35px;
     padding: 0 10px;
     border: 2px solid white;
@@ -81,8 +81,8 @@ nav {
 
 .input:focus {
     color: white;
-    background-color: #212121;
-    outline-color: rgb(10, 1, 1);
+    background-color: #000000;
+    outline-color: rgb(0, 0, 0);
     box-shadow: -3px -3px 15px rgb(0, 255, 255);
     transition: .1s;
     transition-property: box-shadow;
