@@ -1,13 +1,16 @@
 import '../style/MangaCard.css';
 import React from 'react';
+import { useNavigate} from "react-router-dom";
 
 function MangaCard({manga}) {
 
+    const navigate = useNavigate();
+
     const handleMangaCard = function(manga){
-       
+        navigate(`/detail/${manga.id}`,{state: {manga}});
     }
     return (
-        <div className="manga-card" onClick={handleMangaCard}>
+        <div className="manga-card" onClick={() =>handleMangaCard(manga)}>
             <div className="card-image" >
                 <img src={manga.cover} alt={manga.title}></img>
             </div>
