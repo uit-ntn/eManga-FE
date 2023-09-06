@@ -8,7 +8,7 @@ import Detail from './Detail';
 const publicRoutes = [
 {path :'/'  ,component : Home},
 {path :'/contact',component:Contact},
-{path :'/about',component:About},,
+{path :'/about',component:About},
 {path:'/detail/:id', component:Detail}
 ];
 

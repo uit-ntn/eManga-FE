@@ -2,8 +2,8 @@
 import React, {useState,useEffect} from "react";
 import { Link } from "react-router-dom";
 import "../style/Header.css";
-import SignUpModal from "../routes/SignUpModal";
-import LogInModal from "../routes/LogInModal";
+import LogInModal from "./LogInModal";
+import SignUpModal from "./SignUpModal";
 import logo from "../image/goku.png"
 function Header() {
 
