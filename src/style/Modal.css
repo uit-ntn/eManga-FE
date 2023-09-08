@@ -121,7 +121,7 @@ input::placeholder {
     border: none;
     border-radius: 8px;
     padding: 12px 0px;
-    margin: 20px 0;
+    margin: 20px 0px;
     font-size: 14px;
     text-transform: uppercase;
 }
@@ -132,7 +132,16 @@ input::placeholder {
     color: #FFF;
 }
 
-.SignUpFooter a{
+.SignUpFooter {
     text-decoration: none;
-    color: #AABEE4;
+    cursor: pointer;
 }
+.ErrorText{
+
+    text-align: center;
+    color: rgb(243, 5, 5);
+    background: #FFF;
+    border-radius: 10px;
+    font-weight: bolder;
+}
+
