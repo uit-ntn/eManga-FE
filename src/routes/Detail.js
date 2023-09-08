@@ -13,7 +13,7 @@ function Detail() {
             <div className="manga-detail">
                 <div className="manga-card-detail background">
                     <div className="manga-card__image">
-                        <img src={manga.cover}></img>
+                        <img src={manga.cover} alt="#"></img>
                     </div>
                     <div className="manga-card__detail">
                         <div className="manga-card__detail-title">

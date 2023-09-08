@@ -1,109 +1,138 @@
-import React, { useState , useEffect} from "react";
+import React, { useState } from "react";
 import Modal from "./Modal";
+import ResetPassword from "./ResetPassword";
 import "../style/Modal.css";
-import logoImage from "../image/red-paint-crossed-with-black-paint.jpg"
-
+import logoImage from "../image/red-paint-crossed-with-black-paint.jpg";
 
 const LogInModal = ({ isOpen, onClose }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [loggedIn, setLoggedIn] = useState('false');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+  const [isResetPasswordModalOpen, setIsResetPasswordModalOpen] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleLogin = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [loginError, setLoginError] = useState(null);
-  
-    useEffect(() => {
-      if (loginError) {
-        console.error("login failed", loginError);
-      }
-    }, [loginError]);
-  
-    const handleLogin = () => {
-      const userAPI = "https://64e6bc0e09e64530d18031e6.mockapi.io/emanga/users";
-      fetch(userAPI, {
-        method: 'POST',
+  const openResetPasswordModal = () => {
+    setIsResetPasswordModalOpen(true);
+    onClose();
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    if (!username || !password) {
+      setError("Please provide username and password.");
+      return;
+    }
+
+    setError(null);
+
+    const API_URL = "https://64e6bc0e09e64530d18031e6.mockapi.io/emanga/users";
+
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           username: username,
-          password: password
+          password: password,
         }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("error logginng in");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          if (data && data.validLogin === true) {
-            setLoggedIn(true);
-            setLoginError(null);
-            console.log("login success");
-          } else {
-            setLoggedIn(false);
-            setLoginError("login failed");
-            console.error("login failed");
-          }
-        })
-        .catch((error) => {
-          setLoggedIn(false);
-          setLoginError(error);
-          console.error("Error sending login request:", error);
-        });
+      });
+
+      if (!response.ok) {
+        throw new Error("Login failed");
+      }
+
+      const data = await response.json();
+
+      if (data && data.validLogin === true) {
+        setLoggedIn(true);
+        setUser(data);
+        setUsername("");
+        setPassword("");
+      } else {
+        setLoggedIn(false);
+        setError("Login failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error sending login request:", error);
+      setError("An error occurred during login. Please try again later.");
+    }
   };
-};
-
-
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="modal-content">
-        {/* modal header */}
-        <div className="modal-content-header">
-          <div className="logoImage">
-            <img src={logoImage} alt="Logo" />
+    <>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <div className="modal-content">
+          <div className="modal-content-header">
+            <div className="logoImage">
+              <img src={logoImage} alt="Logo" />
+            </div>
+            <h3>Login to eManga</h3>
+            <h5>
+              Discover anime and manga, track your progress, get recommendations, and watch legal anime. For free!
+            </h5>
           </div>
-          <h3>Login to eManga</h3>
-          <p>Need an account?
-            <a href="#"> Sign in</a>
-          </p>
-        </div>
-        {/* Input Pure User Infor */}
-        <div className="SignUpInputs">
-          <div className="pure-control-group">
-            <input type="text" name="Username" autoFocus="autoFocus"
-              placeholder="Username or Email"
-            ></input>
-          </div>
+          <div className="SignUpInputs">
+            <div className="pure-control-group">
+              <input
+                type="text"
+                name="Username"
+                autoFocus
+                placeholder="Username or Email"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
 
-          <div className="pure-control-group">
-            <input type="password" name="password" autoFocus="autoFocus" placeholder="Password"></input>
+            <div className="pure-control-group">
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
           </div>
+          <div className="SignUpAction pure-controls">
+            <button type="submit" className="button-cta" onClick={handleLogin}>
+              Log In
+            </button>
+          </div>
+          <div className="background-strikethrough">
+            <span>Or</span>
+          </div>
+          <div className="SignUpProviders">
+            <a href="#" className="facebook-button">
+              Login with Facebook
+            </a>
+            <a href="#" className="twitter-button">
+              Login with Twitter
+            </a>
+          </div>
+          <div className="SignUpFooter">
+            <div onClick={openResetPasswordModal}>Forgot Password</div>
+
+            {/*check login section*/}
+          </div>
+          {loggedIn ? (
+            <div className="LoggedInMessage">Logged in as {user && user.username}</div>
+          ) : (
+            <div className="ErrorText">{error}</div>
+          )}
         </div>
-        {/* End Input Pure User Infor  */}
-        {/* SignIn Button  */}
-        <div className="SignUpAction pure-controls">
-          <button type="submit" className="button-cta" onClick={handleLogin}>Log In</button>
-        </div>
-        {/* End SignIn Button */}
-        {/* SignUp by Social Account */}
-        <div className="background-strikethrough">
-          <span>Or</span>
-        </div>
-        <div className="SignUpProviders">
-          <a href="#" className="facebook-button">Login with Facebook</a>
-          <a href="#" className="twitter-button">Login with Twitter</a>
-        </div>
-        <div className="SignUpFooter">
-          <a href="#">Forgot your password</a>
-        </div>
-      </div>
-    </Modal>
+      </Modal>
+
+      {isResetPasswordModalOpen && (
+        <ResetPassword
+          isOpen={isResetPasswordModalOpen}
+          onClose={() => setIsResetPasswordModalOpen(false)}
+        />
+      )}
+    </>
   );
 };
 
